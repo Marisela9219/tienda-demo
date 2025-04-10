@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contáctanos</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Menú de navegación -->
+  <header>
+    <h1>Belleza de Mujer</h1>
+    <p>Descubre tu mejor versión con nuestros productos.</p>
+    <nav>
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="quienes-somos.html">Quiénes Somos</a></li>
+        <li><a href="contacto.html">Contáctanos</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Sección de Contacto -->
+  <section id="contacto">
+    <div class="container">
+      <h2>Contáctanos</h2>
+      <form id="formulario-contacto" action="#">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" name="nombre" required minlength="3">
+        <small class="error" id="error-nombre"></small>
+
+        <label for="email">Correo electrónico:</label>
+        <input type="email" id="email" name="email" required>
+        <small class="error" id="error-email"></small>
+
+        <label for="mensaje">Mensaje:</label>
+        <textarea id="mensaje" name="mensaje" rows="5" required minlength="10"></textarea>
+        <small class="error" id="error-mensaje"></small>
+
+        <button type="submit" id="btn-enviar">Enviar</button>
+      </form>
+
+    </div>
+  </section>
+
+  <footer>
+    <p>© 2025 Belleza de Mujer | Demo para portafolio</p>
+  </footer>
+
+
+<script>
+  const form = document.getElementById('formulario-contacto');
+  const btnEnviar = document.getElementById('btn-enviar');
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const nombre = document.getElementById('nombre').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const mensaje = document.getElementById('mensaje').value.trim();
+
+    // limpiar errores anteriores
+    document.querySelectorAll('.error').forEach(e => e.textContent = '');
+
+    let valido = true;
+
+    if (nombre.length < 3) {
+      document.getElementById('error-nombre').textContent = 'El nombre debe tener al menos 3 caracteres.';
+      valido = false;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      document.getElementById('error-email').textContent = 'Ingresa un correo válido.';
+      valido = false;
+    }
+
+    if (mensaje.length < 10) {
+      document.getElementById('error-mensaje').textContent = 'El mensaje debe tener al menos 10 caracteres.';
+      valido = false;
+    }
+
+    if (!valido) return;
+
+    // Enviar a WhatsApp
+    btnEnviar.disabled = true;
+    const telefono = '50360440034'; // ← tu número sin +
+    const texto = `Hola, soy ${nombre}.%0AMi correo es: ${email}.%0AMensaje: ${mensaje}`;
+    const url = `https://wa.me/${telefono}?text=${texto}`;
+
+    window.open(url, '_blank');
+    form.reset();
+    btnEnviar.disabled = false;
+  });
+</script>
+
+
+
+
+</body>
+</html>
